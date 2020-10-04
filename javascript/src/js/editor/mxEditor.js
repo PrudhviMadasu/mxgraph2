@@ -1258,16 +1258,31 @@ mxEditor.prototype.addActions = function ()
 	{
 		if (editor.graph.isEnabled())
 		{
+			var cells = editor.graph.getChildVertices();
 			editor.graph.foldCells(false);
+			cells.forEach(element => {
+				element.children.forEach(childelement => {
+					childelement.geometry.width = childelement.parent.geometry.width;
+					
+				});
+				editor.graph.view.refresh(element);
+			});
 		}
 	});
-
+	
 	this.addAction('expandAll', function(editor)
 	{
 		if (editor.graph.isEnabled())
 		{
 			var cells = editor.graph.getChildVertices();
 			editor.graph.foldCells(false, false, cells);
+			cells.forEach(element => {
+				element.children.forEach(childelement => {
+					childelement.geometry.width = childelement.parent.geometry.width;
+					
+				});
+				editor.graph.view.refresh(element);
+			});
 		}
 	});
 
